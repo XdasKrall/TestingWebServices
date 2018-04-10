@@ -1,0 +1,692 @@
+<ns0:test-suite xmlns:ns0="urn:model.allure.qatools.yandex.ru" start="1523376893107" stop="1523376897308">
+  <description>Rest Patch Product Tests</description>
+  <name>Rest Patch Product Tests</name>
+  <title>Rest Patch Product Tests</title>
+  <labels/>
+  <test-cases>
+    <test-case severity="normal" start="1523376893109" status="passed" stop="1523376895869">
+      <description>Test to verify that price of a product is successfully patched with valid data</description>
+      <name>Valid Price</name>
+      <attachments/>
+      <labels>
+        <label name="thread" value="6512"/>
+      </labels>
+      <steps>
+        <step start="1523376893109" status="passed" stop="1523376893112">
+          <name>Keywords.Create Default Session</name>
+          <title>Create Default Session</title>
+          <attachments/>
+          <steps>
+            <step start="1523376893110" status="passed" stop="1523376893111">
+              <name>RequestsKeywords.Create Session</name>
+              <title>Create Session</title>
+              <attachments/>
+              <steps>
+                <step start="1523376893110" status="passed" stop="1523376893110">
+                  <name>Log Message</name>
+                  <title>Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376893112" status="passed" stop="1523376893114">
+          <name>BuiltIn.Create Dictionary</name>
+          <title>Create Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376893113" status="passed" stop="1523376893113">
+              <name>Log Message</name>
+              <title>&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376893114" status="passed" stop="1523376895636">
+          <name>Post A Product With Data</name>
+          <title>Post A Product With Data</title>
+          <attachments/>
+          <steps>
+            <step start="1523376893115" status="passed" stop="1523376893115">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376893115" status="passed" stop="1523376893115">
+                  <name>Log Message</name>
+                  <title>&amp;{headers} = { Content-Type=application/json }</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376893115" status="passed" stop="1523376895630">
+              <name>RequestsKeywords.Post Request</name>
+              <title>Post Request</title>
+              <attachments/>
+              <steps>
+                <step start="1523376895630" status="passed" stop="1523376895630">
+                  <name>Log Message</name>
+                  <title>Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376895630" status="passed" stop="1523376895630">
+                  <name>Log Message</name>
+                  <title>${response} = &lt;Response [201]&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376895631" status="passed" stop="1523376895632">
+              <name>BuiltIn.Should Be Equal As Numbers</name>
+              <title>Should Be Equal As Numbers</title>
+              <attachments/>
+              <steps>
+                <step start="1523376895632" status="passed" stop="1523376895632">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376895632" status="passed" stop="1523376895635">
+              <name>Keywords.Should Contain Location A Created Product</name>
+              <title>Should Contain Location A Created Product</title>
+              <attachments/>
+              <steps>
+                <step start="1523376895633" status="passed" stop="1523376895633">
+                  <name>Collections.Dictionary Should Contain Key</name>
+                  <title>Dictionary Should Contain Key</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376895634" status="passed" stop="1523376895634">
+                  <name>Collections.Get From Dictionary</name>
+                  <title>Get From Dictionary</title>
+                  <attachments/>
+                  <steps>
+                    <step start="1523376895634" status="passed" stop="1523376895634">
+                      <name>Log Message</name>
+                      <title>${location} = /shop/products/239</title>
+                      <attachments/>
+                      <steps/>
+                    </step>
+                  </steps>
+                </step>
+                <step start="1523376895635" status="passed" stop="1523376895635">
+                  <name>BuiltIn.Should Contain</name>
+                  <title>Should Contain</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376895636" status="passed" stop="1523376895636">
+              <name>Log Message</name>
+              <title>${location} = /shop/products/239</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895636" status="passed" stop="1523376895638">
+          <name>Keywords.Create Default Headers</name>
+          <title>Create Default Headers</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895637" status="passed" stop="1523376895637">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376895637" status="passed" stop="1523376895637">
+                  <name>Log Message</name>
+                  <title>&amp;{headers} = { Content-Type=application/json }</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376895638" status="passed" stop="1523376895638">
+              <name>Log Message</name>
+              <title>&amp;{headers} = { Content-Type=application/json }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895638" status="passed" stop="1523376895639">
+          <name>BuiltIn.Create Dictionary</name>
+          <title>Create Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895639" status="passed" stop="1523376895639">
+              <name>Log Message</name>
+              <title>${patch_data} = {'price': 1.99}</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895640" status="passed" stop="1523376895860">
+          <name>RequestsKeywords.Patch Request</name>
+          <title>Patch Request</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895860" status="passed" stop="1523376895860">
+              <name>Log Message</name>
+              <title>Patch Request using : alias=predic8, uri=/shop/products/239, data={"price": 1.99},                     headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </title>
+              <attachments/>
+              <steps/>
+            </step>
+            <step start="1523376895860" status="passed" stop="1523376895860">
+              <name>Log Message</name>
+              <title>${response} = &lt;Response [200]&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895861" status="passed" stop="1523376895862">
+          <name>BuiltIn.Should Be Equal As Numbers</name>
+          <title>Should Be Equal As Numbers</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895862" status="passed" stop="1523376895862">
+              <name>Log Message</name>
+              <title>Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895863" status="passed" stop="1523376895864">
+          <name>BuiltIn.Set Variable</name>
+          <title>Set Variable</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895864" status="passed" stop="1523376895864">
+              <name>Log Message</name>
+              <title>&amp;{expected_data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895864" status="passed" stop="1523376895865">
+          <name>Collections.Set To Dictionary</name>
+          <title>Set To Dictionary</title>
+          <attachments/>
+          <steps/>
+        </step>
+        <step start="1523376895865" status="passed" stop="1523376895866">
+          <name>BuiltIn.Should Be Equal</name>
+          <title>Should Be Equal</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895866" status="passed" stop="1523376895866">
+              <name>Log Message</name>
+              <title>Argument types are:
+&lt;class 'dict'&gt;
+&lt;class 'robot.utils.dotdict.DotDict'&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+      </steps>
+    </test-case>
+    <test-case severity="normal" start="1523376895870" status="passed" stop="1523376896583">
+      <description>Test to verify that name of a product won't be patched as name is not string</description>
+      <name>Invalid Name</name>
+      <attachments/>
+      <labels>
+        <label name="thread" value="6512"/>
+      </labels>
+      <steps>
+        <step start="1523376895870" status="passed" stop="1523376895872">
+          <name>Keywords.Create Default Session</name>
+          <title>Create Default Session</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895871" status="passed" stop="1523376895872">
+              <name>RequestsKeywords.Create Session</name>
+              <title>Create Session</title>
+              <attachments/>
+              <steps>
+                <step start="1523376895871" status="passed" stop="1523376895871">
+                  <name>Log Message</name>
+                  <title>Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895873" status="passed" stop="1523376895874">
+          <name>BuiltIn.Create Dictionary</name>
+          <title>Create Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895874" status="passed" stop="1523376895874">
+              <name>Log Message</name>
+              <title>&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376895874" status="passed" stop="1523376896344">
+          <name>Post A Product With Data</name>
+          <title>Post A Product With Data</title>
+          <attachments/>
+          <steps>
+            <step start="1523376895875" status="passed" stop="1523376895876">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376895875" status="passed" stop="1523376895875">
+                  <name>Log Message</name>
+                  <title>&amp;{headers} = { Content-Type=application/json }</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376895876" status="passed" stop="1523376896324">
+              <name>RequestsKeywords.Post Request</name>
+              <title>Post Request</title>
+              <attachments/>
+              <steps>
+                <step start="1523376896322" status="passed" stop="1523376896322">
+                  <name>Log Message</name>
+                  <title>Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376896322" status="passed" stop="1523376896323">
+                  <name>Log Message</name>
+                  <title>${response} = &lt;Response [201]&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376896325" status="passed" stop="1523376896330">
+              <name>BuiltIn.Should Be Equal As Numbers</name>
+              <title>Should Be Equal As Numbers</title>
+              <attachments/>
+              <steps>
+                <step start="1523376896329" status="passed" stop="1523376896329">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376896331" status="passed" stop="1523376896341">
+              <name>Keywords.Should Contain Location A Created Product</name>
+              <title>Should Contain Location A Created Product</title>
+              <attachments/>
+              <steps>
+                <step start="1523376896332" status="passed" stop="1523376896334">
+                  <name>Collections.Dictionary Should Contain Key</name>
+                  <title>Dictionary Should Contain Key</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376896335" status="passed" stop="1523376896337">
+                  <name>Collections.Get From Dictionary</name>
+                  <title>Get From Dictionary</title>
+                  <attachments/>
+                  <steps>
+                    <step start="1523376896336" status="passed" stop="1523376896336">
+                      <name>Log Message</name>
+                      <title>${location} = /shop/products/240</title>
+                      <attachments/>
+                      <steps/>
+                    </step>
+                  </steps>
+                </step>
+                <step start="1523376896338" status="passed" stop="1523376896340">
+                  <name>BuiltIn.Should Contain</name>
+                  <title>Should Contain</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376896343" status="passed" stop="1523376896343">
+              <name>Log Message</name>
+              <title>${location} = /shop/products/240</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896345" status="passed" stop="1523376896351">
+          <name>Keywords.Create Default Headers</name>
+          <title>Create Default Headers</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896346" status="passed" stop="1523376896349">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376896348" status="passed" stop="1523376896348">
+                  <name>Log Message</name>
+                  <title>&amp;{headers} = { Content-Type=application/json }</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376896350" status="passed" stop="1523376896350">
+              <name>Log Message</name>
+              <title>&amp;{headers} = { Content-Type=application/json }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896351" status="passed" stop="1523376896353">
+          <name>BuiltIn.Create Dictionary</name>
+          <title>Create Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896352" status="passed" stop="1523376896352">
+              <name>Log Message</name>
+              <title>${patch_data} = {'name': 45}</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896353" status="passed" stop="1523376896574">
+          <name>RequestsKeywords.Patch Request</name>
+          <title>Patch Request</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896573" status="passed" stop="1523376896573">
+              <name>Log Message</name>
+              <title>Patch Request using : alias=predic8, uri=/shop/products/240, data={"name": 45},                     headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </title>
+              <attachments/>
+              <steps/>
+            </step>
+            <step start="1523376896574" status="passed" stop="1523376896574">
+              <name>Log Message</name>
+              <title>${response} = &lt;Response [400]&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896576" status="passed" stop="1523376896577">
+          <name>BuiltIn.Should Be Equal As Numbers</name>
+          <title>Should Be Equal As Numbers</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896577" status="passed" stop="1523376896577">
+              <name>Log Message</name>
+              <title>Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896577" status="passed" stop="1523376896579">
+          <name>Keywords.Should Contain Error</name>
+          <title>Should Contain Error</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896578" status="passed" stop="1523376896579">
+              <name>Collections.Dictionary Should Contain Value</name>
+              <title>Dictionary Should Contain Value</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+      </steps>
+    </test-case>
+    <test-case severity="normal" start="1523376896584" status="passed" stop="1523376897302">
+      <description>Test to verify that product won't be patched as we post not allowed field</description>
+      <name>Invalid Field</name>
+      <attachments/>
+      <labels>
+        <label name="thread" value="6512"/>
+      </labels>
+      <steps>
+        <step start="1523376896585" status="passed" stop="1523376896586">
+          <name>Keywords.Create Default Session</name>
+          <title>Create Default Session</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896585" status="passed" stop="1523376896586">
+              <name>RequestsKeywords.Create Session</name>
+              <title>Create Session</title>
+              <attachments/>
+              <steps>
+                <step start="1523376896586" status="passed" stop="1523376896586">
+                  <name>Log Message</name>
+                  <title>Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896587" status="passed" stop="1523376896588">
+          <name>BuiltIn.Create Dictionary</name>
+          <title>Create Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896588" status="passed" stop="1523376896588">
+              <name>Log Message</name>
+              <title>&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376896589" status="passed" stop="1523376897044">
+          <name>Post A Product With Data</name>
+          <title>Post A Product With Data</title>
+          <attachments/>
+          <steps>
+            <step start="1523376896590" status="passed" stop="1523376896591">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376896591" status="passed" stop="1523376896591">
+                  <name>Log Message</name>
+                  <title>&amp;{headers} = { Content-Type=application/json }</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376896592" status="passed" stop="1523376897031">
+              <name>RequestsKeywords.Post Request</name>
+              <title>Post Request</title>
+              <attachments/>
+              <steps>
+                <step start="1523376897029" status="passed" stop="1523376897030">
+                  <name>Log Message</name>
+                  <title>Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376897031" status="passed" stop="1523376897031">
+                  <name>Log Message</name>
+                  <title>${response} = &lt;Response [201]&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376897032" status="passed" stop="1523376897034">
+              <name>BuiltIn.Should Be Equal As Numbers</name>
+              <title>Should Be Equal As Numbers</title>
+              <attachments/>
+              <steps>
+                <step start="1523376897033" status="passed" stop="1523376897033">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376897035" status="passed" stop="1523376897043">
+              <name>Keywords.Should Contain Location A Created Product</name>
+              <title>Should Contain Location A Created Product</title>
+              <attachments/>
+              <steps>
+                <step start="1523376897037" status="passed" stop="1523376897039">
+                  <name>Collections.Dictionary Should Contain Key</name>
+                  <title>Dictionary Should Contain Key</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376897040" status="passed" stop="1523376897042">
+                  <name>Collections.Get From Dictionary</name>
+                  <title>Get From Dictionary</title>
+                  <attachments/>
+                  <steps>
+                    <step start="1523376897041" status="passed" stop="1523376897041">
+                      <name>Log Message</name>
+                      <title>${location} = /shop/products/241</title>
+                      <attachments/>
+                      <steps/>
+                    </step>
+                  </steps>
+                </step>
+                <step start="1523376897042" status="passed" stop="1523376897043">
+                  <name>BuiltIn.Should Contain</name>
+                  <title>Should Contain</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376897043" status="passed" stop="1523376897043">
+              <name>Log Message</name>
+              <title>${location} = /shop/products/241</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376897045" status="passed" stop="1523376897047">
+          <name>Keywords.Create Default Headers</name>
+          <title>Create Default Headers</title>
+          <attachments/>
+          <steps>
+            <step start="1523376897045" status="passed" stop="1523376897046">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376897046" status="passed" stop="1523376897046">
+                  <name>Log Message</name>
+                  <title>&amp;{headers} = { Content-Type=application/json }</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376897047" status="passed" stop="1523376897047">
+              <name>Log Message</name>
+              <title>&amp;{headers} = { Content-Type=application/json }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376897048" status="passed" stop="1523376897048">
+          <name>BuiltIn.Create Dictionary</name>
+          <title>Create Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376897048" status="passed" stop="1523376897048">
+              <name>Log Message</name>
+              <title>${patch_data} = {'color': 'blue'}</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376897049" status="passed" stop="1523376897284">
+          <name>RequestsKeywords.Patch Request</name>
+          <title>Patch Request</title>
+          <attachments/>
+          <steps>
+            <step start="1523376897283" status="passed" stop="1523376897283">
+              <name>Log Message</name>
+              <title>Patch Request using : alias=predic8, uri=/shop/products/241, data={"color": "blue"},                     headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </title>
+              <attachments/>
+              <steps/>
+            </step>
+            <step start="1523376897284" status="passed" stop="1523376897284">
+              <name>Log Message</name>
+              <title>${response} = &lt;Response [400]&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376897285" status="passed" stop="1523376897288">
+          <name>BuiltIn.Should Be Equal As Numbers</name>
+          <title>Should Be Equal As Numbers</title>
+          <attachments/>
+          <steps>
+            <step start="1523376897287" status="passed" stop="1523376897287">
+              <name>Log Message</name>
+              <title>Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376897289" status="passed" stop="1523376897296">
+          <name>Keywords.Should Contain Error</name>
+          <title>Should Contain Error</title>
+          <attachments/>
+          <steps>
+            <step start="1523376897292" status="passed" stop="1523376897294">
+              <name>Collections.Dictionary Should Contain Value</name>
+              <title>Dictionary Should Contain Value</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+      </steps>
+    </test-case>
+  </test-cases>
+</ns0:test-suite>

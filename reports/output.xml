@@ -1,0 +1,1639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.3 (Python 3.6.5 on win32)" generated="20180410 19:14:51.316">
+<suite id="s1" name="Tests" source="C:\PycharmProjects\TestingWebServices\tests">
+<suite id="s1-s1" name="Rest" source="C:\PycharmProjects\TestingWebServices\tests\rest">
+<suite id="s1-s1-s1" name="Rest Patch Product Tests" source="C:\PycharmProjects\TestingWebServices\tests\rest\rest_patch_product_tests.robot">
+<test id="s1-s1-s1-t1" name="Valid Price">
+<kw name="Create Default Session" library="Keywords">
+<kw name="Create Session" library="RequestsKeywords">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${SERVICE_ROOT}</arg>
+<arg>verify=true</arg>
+</arguments>
+<msg timestamp="20180410 19:14:53.110" level="INFO">Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </msg>
+<status status="PASS" starttime="20180410 19:14:53.110" endtime="20180410 19:14:53.111"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:53.109" endtime="20180410 19:14:53.112"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${NAME_PRODUCT}</arg>
+<arg>price=${PRICE_PRODUCT}</arg>
+<arg>category_url=${CATEGORY_URL_PRODUCT}</arg>
+<arg>vendor_url=${VENDOR_URL_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>&amp;{data}</var>
+</assign>
+<msg timestamp="20180410 19:14:53.113" level="INFO">&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</msg>
+<status status="PASS" starttime="20180410 19:14:53.112" endtime="20180410 19:14:53.113"></status>
+</kw>
+<kw name="Post A Product With Data">
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:53.115" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:53.114" endtime="20180410 19:14:53.115"></status>
+</kw>
+<kw name="Post Request" library="RequestsKeywords">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>/shop/products/</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.630" level="INFO">Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:55.630" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:53.115" endtime="20180410 19:14:55.630"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<arg>Expected a status code of 201 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:55.632" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:55.631" endtime="20180410 19:14:55.632"></status>
+</kw>
+<kw name="Should Contain Location A Created Product" library="Keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:55.633" endtime="20180410 19:14:55.633"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.634" level="INFO">${location} = /shop/products/239</msg>
+<status status="PASS" starttime="20180410 19:14:55.633" endtime="20180410 19:14:55.634"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${location}</arg>
+<arg>/shop/products/</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:55.634" endtime="20180410 19:14:55.635"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:55.632" endtime="20180410 19:14:55.635"></status>
+</kw>
+<msg timestamp="20180410 19:14:55.636" level="INFO">${location} = /shop/products/239</msg>
+<status status="PASS" starttime="20180410 19:14:53.114" endtime="20180410 19:14:55.636"></status>
+</kw>
+<kw name="Create Default Headers" library="Keywords">
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.637" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:55.636" endtime="20180410 19:14:55.637"></status>
+</kw>
+<msg timestamp="20180410 19:14:55.638" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:55.636" endtime="20180410 19:14:55.638"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>price=${VALID_NEW_PRICE_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>${patch_data}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.639" level="INFO">${patch_data} = {'price': 1.99}</msg>
+<status status="PASS" starttime="20180410 19:14:55.638" endtime="20180410 19:14:55.639"></status>
+</kw>
+<kw name="Patch Request" library="RequestsKeywords">
+<doc>Send a PATCH request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${location}</arg>
+<arg>data=${patch_data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.860" level="INFO">Patch Request using : alias=predic8, uri=/shop/products/239, data={"price": 1.99},                     headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:55.860" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:55.640" endtime="20180410 19:14:55.860"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<arg>Expected a status code of 200 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:55.862" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:55.861" endtime="20180410 19:14:55.862"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>&amp;{expected_data}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.863" level="INFO">&amp;{expected_data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</msg>
+<status status="PASS" starttime="20180410 19:14:55.863" endtime="20180410 19:14:55.864"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${expected_data}</arg>
+<arg>price</arg>
+<arg>${VALID_NEW_PRICE_PRODUCT}</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:55.864" endtime="20180410 19:14:55.865"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+<arg>${expected_data}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:55.866" level="INFO">Argument types are:
+&lt;class 'dict'&gt;
+&lt;class 'robot.utils.dotdict.DotDict'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:55.865" endtime="20180410 19:14:55.866"></status>
+</kw>
+<doc>Test to verify that price of a product is successfully patched with valid data</doc>
+<status status="PASS" starttime="20180410 19:14:53.108" endtime="20180410 19:14:55.866" critical="yes"></status>
+</test>
+<test id="s1-s1-s1-t2" name="Invalid Name">
+<kw name="Create Default Session" library="Keywords">
+<kw name="Create Session" library="RequestsKeywords">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${SERVICE_ROOT}</arg>
+<arg>verify=true</arg>
+</arguments>
+<msg timestamp="20180410 19:14:55.871" level="INFO">Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </msg>
+<status status="PASS" starttime="20180410 19:14:55.871" endtime="20180410 19:14:55.872"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:55.870" endtime="20180410 19:14:55.872"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${NAME_PRODUCT}</arg>
+<arg>price=${PRICE_PRODUCT}</arg>
+<arg>category_url=${CATEGORY_URL_PRODUCT}</arg>
+<arg>vendor_url=${VENDOR_URL_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>&amp;{data}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.874" level="INFO">&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</msg>
+<status status="PASS" starttime="20180410 19:14:55.872" endtime="20180410 19:14:55.874"></status>
+</kw>
+<kw name="Post A Product With Data">
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:55.875" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:55.875" endtime="20180410 19:14:55.875"></status>
+</kw>
+<kw name="Post Request" library="RequestsKeywords">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>/shop/products/</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.321" level="INFO">Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:56.322" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:55.876" endtime="20180410 19:14:56.323"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<arg>Expected a status code of 201 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:56.329" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:56.324" endtime="20180410 19:14:56.330"></status>
+</kw>
+<kw name="Should Contain Location A Created Product" library="Keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:56.332" endtime="20180410 19:14:56.333"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.336" level="INFO">${location} = /shop/products/240</msg>
+<status status="PASS" starttime="20180410 19:14:56.334" endtime="20180410 19:14:56.336"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${location}</arg>
+<arg>/shop/products/</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:56.338" endtime="20180410 19:14:56.339"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:56.330" endtime="20180410 19:14:56.340"></status>
+</kw>
+<msg timestamp="20180410 19:14:56.342" level="INFO">${location} = /shop/products/240</msg>
+<status status="PASS" starttime="20180410 19:14:55.874" endtime="20180410 19:14:56.343"></status>
+</kw>
+<kw name="Create Default Headers" library="Keywords">
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.348" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:56.346" endtime="20180410 19:14:56.348"></status>
+</kw>
+<msg timestamp="20180410 19:14:56.350" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:56.344" endtime="20180410 19:14:56.350"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${INVALID_NEW_NAME_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>${patch_data}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.352" level="INFO">${patch_data} = {'name': 45}</msg>
+<status status="PASS" starttime="20180410 19:14:56.351" endtime="20180410 19:14:56.352"></status>
+</kw>
+<kw name="Patch Request" library="RequestsKeywords">
+<doc>Send a PATCH request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${location}</arg>
+<arg>data=${patch_data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.573" level="INFO">Patch Request using : alias=predic8, uri=/shop/products/240, data={"name": 45},                     headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:56.573" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:56.353" endtime="20180410 19:14:56.574"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<arg>Expected a status code of 400 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:56.576" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:56.575" endtime="20180410 19:14:56.577"></status>
+</kw>
+<kw name="Should Contain Error" library="Keywords">
+<arguments>
+<arg>${response.json()}</arg>
+<arg>${NAME_NOT_STRING_ERROR}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>${error}</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:56.578" endtime="20180410 19:14:56.578"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:56.577" endtime="20180410 19:14:56.579"></status>
+</kw>
+<doc>Test to verify that name of a product won't be patched as name is not string</doc>
+<status status="PASS" starttime="20180410 19:14:55.869" endtime="20180410 19:14:56.579" critical="yes"></status>
+</test>
+<test id="s1-s1-s1-t3" name="Invalid Field">
+<kw name="Create Default Session" library="Keywords">
+<kw name="Create Session" library="RequestsKeywords">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${SERVICE_ROOT}</arg>
+<arg>verify=true</arg>
+</arguments>
+<msg timestamp="20180410 19:14:56.586" level="INFO">Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </msg>
+<status status="PASS" starttime="20180410 19:14:56.585" endtime="20180410 19:14:56.586"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:56.584" endtime="20180410 19:14:56.586"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${NAME_PRODUCT}</arg>
+<arg>price=${PRICE_PRODUCT}</arg>
+<arg>category_url=${CATEGORY_URL_PRODUCT}</arg>
+<arg>vendor_url=${VENDOR_URL_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>&amp;{data}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.588" level="INFO">&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</msg>
+<status status="PASS" starttime="20180410 19:14:56.587" endtime="20180410 19:14:56.588"></status>
+</kw>
+<kw name="Post A Product With Data">
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:56.591" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:56.590" endtime="20180410 19:14:56.591"></status>
+</kw>
+<kw name="Post Request" library="RequestsKeywords">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>/shop/products/</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.029" level="INFO">Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:57.031" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:56.592" endtime="20180410 19:14:57.031"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<arg>Expected a status code of 201 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:57.033" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:57.032" endtime="20180410 19:14:57.034"></status>
+</kw>
+<kw name="Should Contain Location A Created Product" library="Keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:57.036" endtime="20180410 19:14:57.038"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.041" level="INFO">${location} = /shop/products/241</msg>
+<status status="PASS" starttime="20180410 19:14:57.040" endtime="20180410 19:14:57.041"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${location}</arg>
+<arg>/shop/products/</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:57.042" endtime="20180410 19:14:57.043"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:57.035" endtime="20180410 19:14:57.043"></status>
+</kw>
+<msg timestamp="20180410 19:14:57.043" level="INFO">${location} = /shop/products/241</msg>
+<status status="PASS" starttime="20180410 19:14:56.588" endtime="20180410 19:14:57.043"></status>
+</kw>
+<kw name="Create Default Headers" library="Keywords">
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.046" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:57.045" endtime="20180410 19:14:57.046"></status>
+</kw>
+<msg timestamp="20180410 19:14:57.047" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:57.044" endtime="20180410 19:14:57.047"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>color=${COLOR}</arg>
+</arguments>
+<assign>
+<var>${patch_data}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.048" level="INFO">${patch_data} = {'color': 'blue'}</msg>
+<status status="PASS" starttime="20180410 19:14:57.047" endtime="20180410 19:14:57.048"></status>
+</kw>
+<kw name="Patch Request" library="RequestsKeywords">
+<doc>Send a PATCH request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${location}</arg>
+<arg>data=${patch_data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.283" level="INFO">Patch Request using : alias=predic8, uri=/shop/products/241, data={"color": "blue"},                     headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:57.283" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:57.049" endtime="20180410 19:14:57.284"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<arg>Expected a status code of 400 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:57.287" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:57.285" endtime="20180410 19:14:57.287"></status>
+</kw>
+<kw name="Should Contain Error" library="Keywords">
+<arguments>
+<arg>${response.json()}</arg>
+<arg>${NOT_ALLOWED_ERROR}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>${error}</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:57.291" endtime="20180410 19:14:57.293"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:57.288" endtime="20180410 19:14:57.295"></status>
+</kw>
+<doc>Test to verify that product won't be patched as we post not allowed field</doc>
+<status status="PASS" starttime="20180410 19:14:56.583" endtime="20180410 19:14:57.296" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20180410 19:14:51.388" endtime="20180410 19:14:57.304"></status>
+</suite>
+<suite id="s1-s1-s2" name="Rest Post Product Tests" source="C:\PycharmProjects\TestingWebServices\tests\rest\rest_post_product_tests.robot">
+<test id="s1-s1-s2-t1" name="Valid Data">
+<kw name="Create Default Session" library="Keywords">
+<kw name="Create Session" library="RequestsKeywords">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${SERVICE_ROOT}</arg>
+<arg>verify=true</arg>
+</arguments>
+<msg timestamp="20180410 19:14:57.365" level="INFO">Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </msg>
+<status status="PASS" starttime="20180410 19:14:57.365" endtime="20180410 19:14:57.366"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:57.364" endtime="20180410 19:14:57.366"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${NAME_PRODUCT}</arg>
+<arg>price=${PRICE_PRODUCT}</arg>
+<arg>category_url=${CATEGORY_URL_PRODUCT}</arg>
+<arg>vendor_url=${VENDOR_URL_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>&amp;{data}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.368" level="INFO">&amp;{data} = { name=Wildberries | price=4.99 | category_url=/shop/categories/Fruits | vendor_url=/shop/vendors/672 }</msg>
+<status status="PASS" starttime="20180410 19:14:57.367" endtime="20180410 19:14:57.368"></status>
+</kw>
+<kw name="Create Default Headers" library="Keywords">
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.369" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:57.369" endtime="20180410 19:14:57.369"></status>
+</kw>
+<msg timestamp="20180410 19:14:57.370" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:57.368" endtime="20180410 19:14:57.370"></status>
+</kw>
+<kw name="Post Request" library="RequestsKeywords">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>/shop/products/</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.795" level="INFO">Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": 4.99, "category_url": "/shop/categories/Fruits", "vendor_url": "/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:57.795" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:57.371" endtime="20180410 19:14:57.795"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<arg>Expected a status code of 201 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:57.797" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:57.796" endtime="20180410 19:14:57.797"></status>
+</kw>
+<kw name="Should Contain Location A Created Product" library="Keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:57.799" endtime="20180410 19:14:57.799"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<assign>
+<var>${location}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.800" level="INFO">${location} = /shop/products/242</msg>
+<status status="PASS" starttime="20180410 19:14:57.800" endtime="20180410 19:14:57.800"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${location}</arg>
+<arg>/shop/products/</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:57.801" endtime="20180410 19:14:57.801"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:57.798" endtime="20180410 19:14:57.801"></status>
+</kw>
+<doc>Test to verify that a product is successfully created with valid data</doc>
+<status status="PASS" starttime="20180410 19:14:57.362" endtime="20180410 19:14:57.802" critical="yes"></status>
+</test>
+<test id="s1-s1-s2-t2" name="Invalid Price">
+<kw name="Create Default Session" library="Keywords">
+<kw name="Create Session" library="RequestsKeywords">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${SERVICE_ROOT}</arg>
+<arg>verify=true</arg>
+</arguments>
+<msg timestamp="20180410 19:14:57.811" level="INFO">Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </msg>
+<status status="PASS" starttime="20180410 19:14:57.810" endtime="20180410 19:14:57.812"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:57.809" endtime="20180410 19:14:57.812"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${NAME_PRODUCT}</arg>
+<arg>price=${INVALID_PRICE_PRODUCT}</arg>
+<arg>category_url=${CATEGORY_URL_PRODUCT}| vendor_url=${VENDOR_URL_PRODUCT}</arg>
+</arguments>
+<assign>
+<var>&amp;{data}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.815" level="INFO">&amp;{data} = { name=Wildberries | price=None | category_url=/shop/categories/Fruits| vendor_url=/shop/vendors/672 }</msg>
+<status status="PASS" starttime="20180410 19:14:57.812" endtime="20180410 19:14:57.815"></status>
+</kw>
+<kw name="Create Default Headers" library="Keywords">
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:57.817" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:57.816" endtime="20180410 19:14:57.817"></status>
+</kw>
+<msg timestamp="20180410 19:14:57.818" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:57.816" endtime="20180410 19:14:57.818"></status>
+</kw>
+<kw name="Post Request" library="RequestsKeywords">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>/shop/products/</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:58.253" level="INFO">Post Request using : alias=predic8, uri=/shop/products/, data={"name": "Wildberries", "price": null, "category_url": "/shop/categories/Fruits| vendor_url=/shop/vendors/672"}, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:58.254" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:57.819" endtime="20180410 19:14:58.254"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<arg>Expected a status code of 400 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:58.258" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:58.255" endtime="20180410 19:14:58.258"></status>
+</kw>
+<kw name="Should Not Contain Location A Created Product" library="Keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Dictionary Should Not Contain Key" library="Collections">
+<doc>Fails if ``key`` is found from ``dictionary``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:58.263" endtime="20180410 19:14:58.264"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:58.260" endtime="20180410 19:14:58.265"></status>
+</kw>
+<kw name="Should Contain Error" library="Keywords">
+<arguments>
+<arg>${response.json()}</arg>
+<arg>${PRICE_NOT_NUMBER_ERROR}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>${error}</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:58.268" endtime="20180410 19:14:58.269"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:58.266" endtime="20180410 19:14:58.270"></status>
+</kw>
+<doc>Test to verify that a product isn't successfully created with invalid data</doc>
+<status status="PASS" starttime="20180410 19:14:57.807" endtime="20180410 19:14:58.270" critical="yes"></status>
+</test>
+<test id="s1-s1-s2-t3" name="Without Data">
+<kw name="Create Default Session" library="Keywords">
+<kw name="Create Session" library="RequestsKeywords">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>${SERVICE_ROOT}</arg>
+<arg>verify=true</arg>
+</arguments>
+<msg timestamp="20180410 19:14:58.280" level="INFO">Creating Session using : alias=predic8, url=https://api.predic8.de, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=true,                     debug=0 </msg>
+<status status="PASS" starttime="20180410 19:14:58.279" endtime="20180410 19:14:58.281"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:58.278" endtime="20180410 19:14:58.281"></status>
+</kw>
+<kw name="Create Default Headers" library="Keywords">
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180410 19:14:58.283" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:58.282" endtime="20180410 19:14:58.284"></status>
+</kw>
+<msg timestamp="20180410 19:14:58.284" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20180410 19:14:58.282" endtime="20180410 19:14:58.284"></status>
+</kw>
+<kw name="Post Request" library="RequestsKeywords">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>${SERVICE_NAME}</arg>
+<arg>/shop/products/</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:58.762" level="INFO">Post Request using : alias=predic8, uri=/shop/products/, data=&lt;empty&gt;, headers={'Content-Type': 'application/json'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180410 19:14:58.763" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:58.285" endtime="20180410 19:14:58.763"></status>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<arg>Expected a status code of 400 but got ${response.status_code}</arg>
+<arg>values=False</arg>
+</arguments>
+<msg timestamp="20180410 19:14:58.766" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:58.764" endtime="20180410 19:14:58.767"></status>
+</kw>
+<kw name="Should Not Contain Location A Created Product" library="Keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Dictionary Should Not Contain Key" library="Collections">
+<doc>Fails if ``key`` is found from ``dictionary``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>location</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:58.769" endtime="20180410 19:14:58.771"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:58.768" endtime="20180410 19:14:58.771"></status>
+</kw>
+<kw name="Should Contain Error" library="Keywords">
+<arguments>
+<arg>${response.json()}</arg>
+<arg>${NO_DATA_ERROR}</arg>
+</arguments>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>${error}</arg>
+</arguments>
+<status status="PASS" starttime="20180410 19:14:58.776" endtime="20180410 19:14:58.779"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:58.773" endtime="20180410 19:14:58.780"></status>
+</kw>
+<doc>Test to verify that a product isn't successfully created without data</doc>
+<status status="PASS" starttime="20180410 19:14:58.276" endtime="20180410 19:14:58.781" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20180410 19:14:57.341" endtime="20180410 19:14:58.784"></status>
+</suite>
+<status status="PASS" starttime="20180410 19:14:51.385" endtime="20180410 19:14:58.808"></status>
+</suite>
+<suite id="s1-s2" name="Soap" source="C:\PycharmProjects\TestingWebServices\tests\soap">
+<suite id="s1-s2-s1" name="Soap Get Bank Tests" source="C:\PycharmProjects\TestingWebServices\tests\soap\soap_get_bank_tests.robot">
+<test id="s1-s2-s1-t1" name="Valid Bank Code">
+<kw name="Create Soap Client" library="SudsLibrary">
+<doc>Loads a WSDL from the given URL/path and creates a Suds SOAP client.</doc>
+<arguments>
+<arg>${SERVICE_ROOT}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.414" level="INFO">Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</msg>
+<status status="PASS" starttime="20180410 19:14:59.219" endtime="20180410 19:14:59.415"></status>
+</kw>
+<kw name="Call Soap Method" library="SudsLibrary">
+<doc>Calls the SOAP method with the given `name` and `args`.</doc>
+<arguments>
+<arg>getBank</arg>
+<arg>${BANK_CODE}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180410 19:14:59.421" level="INFO">Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;12070000&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:14:59.597" level="INFO">Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/"&gt;
+      &lt;ns1:details&gt;
+        &lt;ns1:bezeichnung&gt;Deutsche Bank Ld Brandenburg&lt;/ns1:bezeichnung&gt;
+        &lt;ns1:bic&gt;DEUTDEBB160&lt;/ns1:bic&gt;
+        &lt;ns1:ort&gt;Potsdam&lt;/ns1:ort&gt;
+        &lt;ns1:plz&gt;14405&lt;/ns1:plz&gt;
+      &lt;/ns1:details&gt;
+    &lt;/ns1:getBankResponse&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:14:59.599" level="INFO">${response} = (detailsType){
+   bezeichnung = "Deutsche Bank Ld Brandenburg"
+   bic = "DEUTDEBB160"
+   ort = "Potsdam"
+   plz = "14405"
+ }</msg>
+<status status="PASS" starttime="20180410 19:14:59.416" endtime="20180410 19:14:59.600"></status>
+</kw>
+<kw name="Convert To Dictionary" library="Collections">
+<doc>Converts the given ``item`` to a Python ``dict`` type.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${response_as_dictionary}</var>
+</assign>
+<msg timestamp="20180410 19:14:59.601" level="INFO">${response_as_dictionary} = {'bezeichnung': Deutsche Bank Ld Brandenburg, 'bic': DEUTDEBB160, 'ort': Potsdam, 'plz': 14405}</msg>
+<status status="PASS" starttime="20180410 19:14:59.600" endtime="20180410 19:14:59.601"></status>
+</kw>
+<kw name="Response Should Be Equal To Expected" library="Keywords">
+<arguments>
+<arg>${response_as_dictionary}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>bezeichnung=${BANK_NAME}</arg>
+<arg>bic=${BIC}</arg>
+<arg>ort=${ORT}</arg>
+<arg>plz=${POST_INDEX}</arg>
+</arguments>
+<assign>
+<var>${expected_response}</var>
+</assign>
+<msg timestamp="20180410 19:14:59.606" level="INFO">${expected_response} = {'bezeichnung': 'Deutsche Bank Ld Brandenburg', 'bic': 'DEUTDEBB160', 'ort': 'Potsdam', 'plz': '14405'}</msg>
+<status status="PASS" starttime="20180410 19:14:59.603" endtime="20180410 19:14:59.607"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>${expected_response}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.609" level="INFO">Argument types are:
+&lt;class 'dict'&gt;
+&lt;class 'robot.utils.dotdict.DotDict'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:59.608" endtime="20180410 19:14:59.609"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:59.602" endtime="20180410 19:14:59.610"></status>
+</kw>
+<doc>Test to verify that bank info has been got</doc>
+<status status="PASS" starttime="20180410 19:14:59.217" endtime="20180410 19:14:59.610" critical="yes"></status>
+</test>
+<test id="s1-s2-s1-t2" name="Invalid Bank Code">
+<kw name="Soap Method Should Fault" library="Keywords">
+<arguments>
+<arg>${INVALID_BANK_CODE_NEGATIVE}</arg>
+<arg>${EXPECTED_FAULT_NEGATIVE}</arg>
+</arguments>
+<kw name="Create Soap Client" library="SudsLibrary">
+<doc>Loads a WSDL from the given URL/path and creates a Suds SOAP client.</doc>
+<arguments>
+<arg>${SERVICE_ROOT}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.624" level="INFO">Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</msg>
+<status status="PASS" starttime="20180410 19:14:59.617" endtime="20180410 19:14:59.625"></status>
+</kw>
+<kw name="Call Soap Method Expecting Fault" library="SudsLibrary">
+<doc>Calls the SOAP method expecting the server to raise a fault.</doc>
+<arguments>
+<arg>getBank</arg>
+<arg>${invalid_bank_code}</arg>
+</arguments>
+<assign>
+<var>${fault}</var>
+</assign>
+<msg timestamp="20180410 19:14:59.627" level="INFO">Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;-1&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:14:59.769" level="INFO">Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ -1 gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ -1 gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:14:59.771" level="ERROR">&lt;suds.sax.document.Document object at 0x077C6ED0&gt;</msg>
+<msg timestamp="20180410 19:14:59.773" level="INFO">${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ -1 gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ -1 gefunde...</msg>
+<status status="PASS" starttime="20180410 19:14:59.625" endtime="20180410 19:14:59.774"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${fault.faultstring}</arg>
+<arg>${expected_fault}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.775" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:59.775" endtime="20180410 19:14:59.776"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:59.617" endtime="20180410 19:14:59.776"></status>
+</kw>
+<kw name="Soap Method Should Fault" library="Keywords">
+<arguments>
+<arg>${INVALID_BANK_CODE_TEXT}</arg>
+<arg>${EXPECTED_FAULT_TEXT}</arg>
+</arguments>
+<kw name="Create Soap Client" library="SudsLibrary">
+<doc>Loads a WSDL from the given URL/path and creates a Suds SOAP client.</doc>
+<arguments>
+<arg>${SERVICE_ROOT}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.782" level="INFO">Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</msg>
+<status status="PASS" starttime="20180410 19:14:59.777" endtime="20180410 19:14:59.783"></status>
+</kw>
+<kw name="Call Soap Method Expecting Fault" library="SudsLibrary">
+<doc>Calls the SOAP method expecting the server to raise a fault.</doc>
+<arguments>
+<arg>getBank</arg>
+<arg>${invalid_bank_code}</arg>
+</arguments>
+<assign>
+<var>${fault}</var>
+</assign>
+<msg timestamp="20180410 19:14:59.785" level="INFO">Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;some bank&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:14:59.937" level="INFO">Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ some bank gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ some bank gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:14:59.939" level="ERROR">&lt;suds.sax.document.Document object at 0x07A6CC70&gt;</msg>
+<msg timestamp="20180410 19:14:59.940" level="INFO">${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ some bank gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ som...</msg>
+<status status="PASS" starttime="20180410 19:14:59.783" endtime="20180410 19:14:59.940"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${fault.faultstring}</arg>
+<arg>${expected_fault}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.941" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:14:59.941" endtime="20180410 19:14:59.942"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:59.776" endtime="20180410 19:14:59.942"></status>
+</kw>
+<kw name="Soap Method Should Fault" library="Keywords">
+<arguments>
+<arg>${INVALID_BANK_CODE_FLOAT}</arg>
+<arg>${EXPECTED_FAULT_FLOAT}</arg>
+</arguments>
+<kw name="Create Soap Client" library="SudsLibrary">
+<doc>Loads a WSDL from the given URL/path and creates a Suds SOAP client.</doc>
+<arguments>
+<arg>${SERVICE_ROOT}</arg>
+</arguments>
+<msg timestamp="20180410 19:14:59.951" level="INFO">Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</msg>
+<status status="PASS" starttime="20180410 19:14:59.943" endtime="20180410 19:14:59.951"></status>
+</kw>
+<kw name="Call Soap Method Expecting Fault" library="SudsLibrary">
+<doc>Calls the SOAP method expecting the server to raise a fault.</doc>
+<arguments>
+<arg>getBank</arg>
+<arg>${invalid_bank_code}</arg>
+</arguments>
+<assign>
+<var>${fault}</var>
+</assign>
+<msg timestamp="20180410 19:14:59.954" level="INFO">Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;4.5&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:15:00.098" level="INFO">Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ 4.5 gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ 4.5 gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:15:00.099" level="ERROR">&lt;suds.sax.document.Document object at 0x07A6E210&gt;</msg>
+<msg timestamp="20180410 19:15:00.100" level="INFO">${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ 4.5 gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ 4.5 gefun...</msg>
+<status status="PASS" starttime="20180410 19:14:59.952" endtime="20180410 19:15:00.100"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${fault.faultstring}</arg>
+<arg>${expected_fault}</arg>
+</arguments>
+<msg timestamp="20180410 19:15:00.102" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:15:00.101" endtime="20180410 19:15:00.103"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:14:59.942" endtime="20180410 19:15:00.104"></status>
+</kw>
+<kw name="Soap Method Should Fault" library="Keywords">
+<arguments>
+<arg>${INVALID_BANK_CODE_EMPTY}</arg>
+<arg>${EXPECTED_FAULT_EMPTY}</arg>
+</arguments>
+<kw name="Create Soap Client" library="SudsLibrary">
+<doc>Loads a WSDL from the given URL/path and creates a Suds SOAP client.</doc>
+<arguments>
+<arg>${SERVICE_ROOT}</arg>
+</arguments>
+<msg timestamp="20180410 19:15:00.120" level="INFO">Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</msg>
+<status status="PASS" starttime="20180410 19:15:00.107" endtime="20180410 19:15:00.121"></status>
+</kw>
+<kw name="Call Soap Method Expecting Fault" library="SudsLibrary">
+<doc>Calls the SOAP method expecting the server to raise a fault.</doc>
+<arguments>
+<arg>getBank</arg>
+<arg>${invalid_bank_code}</arg>
+</arguments>
+<assign>
+<var>${fault}</var>
+</assign>
+<msg timestamp="20180410 19:15:00.129" level="INFO">Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz/&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:15:00.274" level="INFO">Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ  gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ  gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:15:00.277" level="ERROR">&lt;suds.sax.document.Document object at 0x07AA2830&gt;</msg>
+<msg timestamp="20180410 19:15:00.278" level="INFO">${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ  gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ  gefunden!
+	...</msg>
+<status status="PASS" starttime="20180410 19:15:00.122" endtime="20180410 19:15:00.279"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${fault.faultstring}</arg>
+<arg>${expected_fault}</arg>
+</arguments>
+<msg timestamp="20180410 19:15:00.281" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:15:00.280" endtime="20180410 19:15:00.281"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:15:00.105" endtime="20180410 19:15:00.281"></status>
+</kw>
+<kw name="Soap Method Should Fault" library="Keywords">
+<arguments>
+<arg>${INVALID_BANK_CODE_BOOL}</arg>
+<arg>${EXPECTED_FAULT_BOOL}</arg>
+</arguments>
+<kw name="Create Soap Client" library="SudsLibrary">
+<doc>Loads a WSDL from the given URL/path and creates a Suds SOAP client.</doc>
+<arguments>
+<arg>${SERVICE_ROOT}</arg>
+</arguments>
+<msg timestamp="20180410 19:15:00.290" level="INFO">Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</msg>
+<status status="PASS" starttime="20180410 19:15:00.283" endtime="20180410 19:15:00.292"></status>
+</kw>
+<kw name="Call Soap Method Expecting Fault" library="SudsLibrary">
+<doc>Calls the SOAP method expecting the server to raise a fault.</doc>
+<arguments>
+<arg>getBank</arg>
+<arg>${invalid_bank_code}</arg>
+</arguments>
+<assign>
+<var>${fault}</var>
+</assign>
+<msg timestamp="20180410 19:15:00.297" level="INFO">Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;True&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:15:00.438" level="INFO">Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ True gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ True gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</msg>
+<msg timestamp="20180410 19:15:00.442" level="ERROR">&lt;suds.sax.document.Document object at 0x07AA27F0&gt;</msg>
+<msg timestamp="20180410 19:15:00.443" level="INFO">${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ True gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ True gef...</msg>
+<status status="PASS" starttime="20180410 19:15:00.293" endtime="20180410 19:15:00.443"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${fault.faultstring}</arg>
+<arg>${expected_fault}</arg>
+</arguments>
+<msg timestamp="20180410 19:15:00.446" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180410 19:15:00.444" endtime="20180410 19:15:00.446"></status>
+</kw>
+<status status="PASS" starttime="20180410 19:15:00.282" endtime="20180410 19:15:00.447"></status>
+</kw>
+<doc>Test to verify that server raised an error due to invalid bank code</doc>
+<status status="PASS" starttime="20180410 19:14:59.615" endtime="20180410 19:15:00.448" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20180410 19:14:58.815" endtime="20180410 19:15:00.456"></status>
+</suite>
+<status status="PASS" starttime="20180410 19:14:58.811" endtime="20180410 19:15:00.484"></status>
+</suite>
+<status status="PASS" starttime="20180410 19:14:51.332" endtime="20180410 19:15:00.488"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="8" fail="0">Critical Tests</stat>
+<stat pass="8" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="8" fail="0" id="s1" name="Tests">Tests</stat>
+<stat pass="6" fail="0" id="s1-s1" name="Rest">Tests.Rest</stat>
+<stat pass="3" fail="0" id="s1-s1-s1" name="Rest Patch Product Tests">Tests.Rest.Rest Patch Product Tests</stat>
+<stat pass="3" fail="0" id="s1-s1-s2" name="Rest Post Product Tests">Tests.Rest.Rest Post Product Tests</stat>
+<stat pass="2" fail="0" id="s1-s2" name="Soap">Tests.Soap</stat>
+<stat pass="2" fail="0" id="s1-s2-s1" name="Soap Get Bank Tests">Tests.Soap.Soap Get Bank Tests</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20180410 19:14:59.771" level="ERROR">&lt;suds.sax.document.Document object at 0x077C6ED0&gt;</msg>
+<msg timestamp="20180410 19:14:59.939" level="ERROR">&lt;suds.sax.document.Document object at 0x07A6CC70&gt;</msg>
+<msg timestamp="20180410 19:15:00.099" level="ERROR">&lt;suds.sax.document.Document object at 0x07A6E210&gt;</msg>
+<msg timestamp="20180410 19:15:00.277" level="ERROR">&lt;suds.sax.document.Document object at 0x07AA2830&gt;</msg>
+<msg timestamp="20180410 19:15:00.442" level="ERROR">&lt;suds.sax.document.Document object at 0x07AA27F0&gt;</msg>
+</errors>
+</robot>

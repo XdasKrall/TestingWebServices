@@ -1,0 +1,881 @@
+<ns0:test-suite xmlns:ns0="urn:model.allure.qatools.yandex.ru" start="1523376899217" stop="1523376900460">
+  <description>Soap Get Bank Tests</description>
+  <name>Soap Get Bank Tests</name>
+  <title>Soap Get Bank Tests</title>
+  <labels/>
+  <test-cases>
+    <test-case severity="normal" start="1523376899218" status="passed" stop="1523376899615">
+      <description>Test to verify that bank info has been got</description>
+      <name>Valid Bank Code</name>
+      <attachments/>
+      <labels>
+        <label name="thread" value="6512"/>
+      </labels>
+      <steps>
+        <step start="1523376899219" status="passed" stop="1523376899415">
+          <name>SudsLibrary.Create Soap Client</name>
+          <title>Create Soap Client</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899414" status="passed" stop="1523376899415">
+              <name>Log Message</name>
+              <title>Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376899416" status="passed" stop="1523376899600">
+          <name>SudsLibrary.Call Soap Method</name>
+          <title>Call Soap Method</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899421" status="passed" stop="1523376899421">
+              <name>Log Message</name>
+              <title>Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;12070000&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</title>
+              <attachments/>
+              <steps/>
+            </step>
+            <step start="1523376899597" status="passed" stop="1523376899597">
+              <name>Log Message</name>
+              <title>Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;ns1:getBankResponse xmlns:ns1="http://thomas-bayer.com/blz/"&gt;
+      &lt;ns1:details&gt;
+        &lt;ns1:bezeichnung&gt;Deutsche Bank Ld Brandenburg&lt;/ns1:bezeichnung&gt;
+        &lt;ns1:bic&gt;DEUTDEBB160&lt;/ns1:bic&gt;
+        &lt;ns1:ort&gt;Potsdam&lt;/ns1:ort&gt;
+        &lt;ns1:plz&gt;14405&lt;/ns1:plz&gt;
+      &lt;/ns1:details&gt;
+    &lt;/ns1:getBankResponse&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</title>
+              <attachments/>
+              <steps/>
+            </step>
+            <step start="1523376899599" status="passed" stop="1523376899599">
+              <name>Log Message</name>
+              <title>${response} = (detailsType){
+   bezeichnung = "Deutsche Bank Ld Brandenburg"
+   bic = "DEUTDEBB160"
+   ort = "Potsdam"
+   plz = "14405"
+ }</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376899601" status="passed" stop="1523376899602">
+          <name>Collections.Convert To Dictionary</name>
+          <title>Convert To Dictionary</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899601" status="passed" stop="1523376899601">
+              <name>Log Message</name>
+              <title>${response_as_dictionary} = {'bezeichnung': Deutsche Bank Ld Brandenburg, 'bic': DEUTDEBB160, 'ort': Potsdam, 'plz': 14405}</title>
+              <attachments/>
+              <steps/>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376899602" status="passed" stop="1523376899610">
+          <name>Keywords.Response Should Be Equal To Expected</name>
+          <title>Response Should Be Equal To Expected</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899604" status="passed" stop="1523376899607">
+              <name>BuiltIn.Create Dictionary</name>
+              <title>Create Dictionary</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899607" status="passed" stop="1523376899607">
+                  <name>Log Message</name>
+                  <title>${expected_response} = {'bezeichnung': 'Deutsche Bank Ld Brandenburg', 'bic': 'DEUTDEBB160', 'ort': 'Potsdam', 'plz': '14405'}</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376899608" status="passed" stop="1523376899609">
+              <name>BuiltIn.Should Be Equal</name>
+              <title>Should Be Equal</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899609" status="passed" stop="1523376899609">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;class 'dict'&gt;
+&lt;class 'robot.utils.dotdict.DotDict'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+      </steps>
+    </test-case>
+    <test-case severity="normal" start="1523376899616" status="passed" stop="1523376900454">
+      <description>Test to verify that server raised an error due to invalid bank code</description>
+      <name>Invalid Bank Code</name>
+      <attachments/>
+      <labels>
+        <label name="thread" value="6512"/>
+      </labels>
+      <steps>
+        <step start="1523376899617" status="passed" stop="1523376899776">
+          <name>Keywords.Soap Method Should Fault</name>
+          <title>Soap Method Should Fault</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899618" status="passed" stop="1523376899625">
+              <name>SudsLibrary.Create Soap Client</name>
+              <title>Create Soap Client</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899624" status="passed" stop="1523376899624">
+                  <name>Log Message</name>
+                  <title>Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376899625" status="passed" stop="1523376899774">
+              <name>SudsLibrary.Call Soap Method Expecting Fault</name>
+              <title>Call Soap Method Expecting Fault</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899627" status="passed" stop="1523376899627">
+                  <name>Log Message</name>
+                  <title>Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;-1&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376899769" status="passed" stop="1523376899769">
+                  <name>Log Message</name>
+                  <title>Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ -1 gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ -1 gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376899771" status="passed" stop="1523376899771">
+                  <name>Log Message</name>
+                  <title>&lt;suds.sax.document.Document object at 0x077C6ED0&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376899773" status="passed" stop="1523376899773">
+                  <name>Log Message</name>
+                  <title>${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ -1 gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ -1 gefunde...</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376899775" status="passed" stop="1523376899776">
+              <name>BuiltIn.Should Be Equal As Strings</name>
+              <title>Should Be Equal As Strings</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899775" status="passed" stop="1523376899775">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376899776" status="passed" stop="1523376899942">
+          <name>Keywords.Soap Method Should Fault</name>
+          <title>Soap Method Should Fault</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899777" status="passed" stop="1523376899783">
+              <name>SudsLibrary.Create Soap Client</name>
+              <title>Create Soap Client</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899782" status="passed" stop="1523376899782">
+                  <name>Log Message</name>
+                  <title>Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376899783" status="passed" stop="1523376899940">
+              <name>SudsLibrary.Call Soap Method Expecting Fault</name>
+              <title>Call Soap Method Expecting Fault</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899785" status="passed" stop="1523376899785">
+                  <name>Log Message</name>
+                  <title>Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;some bank&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376899937" status="passed" stop="1523376899937">
+                  <name>Log Message</name>
+                  <title>Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ some bank gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ some bank gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376899939" status="passed" stop="1523376899939">
+                  <name>Log Message</name>
+                  <title>&lt;suds.sax.document.Document object at 0x07A6CC70&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376899940" status="passed" stop="1523376899940">
+                  <name>Log Message</name>
+                  <title>${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ some bank gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ som...</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376899941" status="passed" stop="1523376899942">
+              <name>BuiltIn.Should Be Equal As Strings</name>
+              <title>Should Be Equal As Strings</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899941" status="passed" stop="1523376899941">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376899942" status="passed" stop="1523376900104">
+          <name>Keywords.Soap Method Should Fault</name>
+          <title>Soap Method Should Fault</title>
+          <attachments/>
+          <steps>
+            <step start="1523376899944" status="passed" stop="1523376899952">
+              <name>SudsLibrary.Create Soap Client</name>
+              <title>Create Soap Client</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899951" status="passed" stop="1523376899951">
+                  <name>Log Message</name>
+                  <title>Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376899952" status="passed" stop="1523376900100">
+              <name>SudsLibrary.Call Soap Method Expecting Fault</name>
+              <title>Call Soap Method Expecting Fault</title>
+              <attachments/>
+              <steps>
+                <step start="1523376899955" status="passed" stop="1523376899955">
+                  <name>Log Message</name>
+                  <title>Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;4.5&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900098" status="passed" stop="1523376900098">
+                  <name>Log Message</name>
+                  <title>Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ 4.5 gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ 4.5 gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900099" status="passed" stop="1523376900099">
+                  <name>Log Message</name>
+                  <title>&lt;suds.sax.document.Document object at 0x07A6E210&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900100" status="passed" stop="1523376900100">
+                  <name>Log Message</name>
+                  <title>${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ 4.5 gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ 4.5 gefun...</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376900101" status="passed" stop="1523376900103">
+              <name>BuiltIn.Should Be Equal As Strings</name>
+              <title>Should Be Equal As Strings</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900102" status="passed" stop="1523376900103">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376900106" status="passed" stop="1523376900282">
+          <name>Keywords.Soap Method Should Fault</name>
+          <title>Soap Method Should Fault</title>
+          <attachments/>
+          <steps>
+            <step start="1523376900108" status="passed" stop="1523376900122">
+              <name>SudsLibrary.Create Soap Client</name>
+              <title>Create Soap Client</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900120" status="passed" stop="1523376900120">
+                  <name>Log Message</name>
+                  <title>Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376900123" status="passed" stop="1523376900279">
+              <name>SudsLibrary.Call Soap Method Expecting Fault</name>
+              <title>Call Soap Method Expecting Fault</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900130" status="passed" stop="1523376900130">
+                  <name>Log Message</name>
+                  <title>Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz/&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900274" status="passed" stop="1523376900274">
+                  <name>Log Message</name>
+                  <title>Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ  gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ  gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900277" status="passed" stop="1523376900277">
+                  <name>Log Message</name>
+                  <title>&lt;suds.sax.document.Document object at 0x07AA2830&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900279" status="passed" stop="1523376900279">
+                  <name>Log Message</name>
+                  <title>${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ  gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ  gefunden!
+	...</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376900280" status="passed" stop="1523376900281">
+              <name>BuiltIn.Should Be Equal As Strings</name>
+              <title>Should Be Equal As Strings</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900281" status="passed" stop="1523376900281">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+        <step start="1523376900282" status="passed" stop="1523376900447">
+          <name>Keywords.Soap Method Should Fault</name>
+          <title>Soap Method Should Fault</title>
+          <attachments/>
+          <steps>
+            <step start="1523376900283" status="passed" stop="1523376900292">
+              <name>SudsLibrary.Create Soap Client</name>
+              <title>Create Soap Client</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900290" status="passed" stop="1523376900291">
+                  <name>Log Message</name>
+                  <title>Using WSDL at http://www.thomas-bayer.com/axis2/services/BLZService?wsdl
+Suds ( https://fedorahosted.org/suds/ )  version: 0.6
+
+Service ( BLZService ) tns="http://thomas-bayer.com/blz/"
+   Prefixes (1)
+      ns0 = "http://thomas-bayer.com/blz/"
+   Ports (2):
+      (BLZServiceSOAP11port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+      (BLZServiceSOAP12port_http)
+         Methods (1):
+            getBank(xs:string blz)
+         Types (3):
+            detailsType
+            getBankResponseType
+            getBankType
+
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376900293" status="passed" stop="1523376900443">
+              <name>SudsLibrary.Call Soap Method Expecting Fault</name>
+              <title>Call Soap Method Expecting Fault</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900297" status="passed" stop="1523376900297">
+                  <name>Log Message</name>
+                  <title>Sending:
+&lt;?xml version="1.0" ?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://thomas-bayer.com/blz/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;SOAP-ENV:Header/&gt;
+  &lt;ns0:Body&gt;
+    &lt;ns1:getBank&gt;
+      &lt;ns1:blz&gt;True&lt;/ns1:blz&gt;
+    &lt;/ns1:getBank&gt;
+  &lt;/ns0:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900438" status="passed" stop="1523376900438">
+                  <name>Log Message</name>
+                  <title>Received:
+&lt;?xml version="1.0" ?&gt;
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soapenv:Body&gt;
+    &lt;soapenv:Fault&gt;
+      &lt;faultcode&gt;soapenv:Server&lt;/faultcode&gt;
+      &lt;faultstring&gt;Keine Bank zur BLZ True gefunden!&lt;/faultstring&gt;
+      &lt;detail&gt;
+        &lt;Exception&gt;org.apache.axis2.AxisFault: Keine Bank zur BLZ True gefunden!
+	at com.thomas_bayer.blz.BLZService.getBank(BLZService.java:41)
+	at com.thomas_bayer.blz.BLZServiceMessageReceiverInOut.invokeBusinessLogic(BLZServiceMessageReceiverInOut.java:49)
+	at org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver.invokeBusinessLogic(AbstractInOutSyncMessageReceiver.java:42)
+	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)
+	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)
+	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)
+	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:646)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:683)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:607)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:313)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+&lt;/Exception&gt;
+      &lt;/detail&gt;
+    &lt;/soapenv:Fault&gt;
+  &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900442" status="passed" stop="1523376900442">
+                  <name>Log Message</name>
+                  <title>&lt;suds.sax.document.Document object at 0x07AA27F0&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+                <step start="1523376900443" status="passed" stop="1523376900443">
+                  <name>Log Message</name>
+                  <title>${fault} = (Fault){
+   faultcode = "soapenv:Server"
+   faultstring = "Keine Bank zur BLZ True gefunden!"
+   detail = 
+      (detail){
+         Exception = "org.apache.axis2.AxisFault: Keine Bank zur BLZ True gef...</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+            <step start="1523376900444" status="passed" stop="1523376900447">
+              <name>BuiltIn.Should Be Equal As Strings</name>
+              <title>Should Be Equal As Strings</title>
+              <attachments/>
+              <steps>
+                <step start="1523376900446" status="passed" stop="1523376900446">
+                  <name>Log Message</name>
+                  <title>Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</title>
+                  <attachments/>
+                  <steps/>
+                </step>
+              </steps>
+            </step>
+          </steps>
+        </step>
+      </steps>
+    </test-case>
+  </test-cases>
+</ns0:test-suite>
